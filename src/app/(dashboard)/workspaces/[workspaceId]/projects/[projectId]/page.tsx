@@ -4,6 +4,7 @@ import { getProject } from "@/features/projects/queries";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
+import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
 import Link from "next/link";
 interface ProjectIdPageProps {
   params: { projectId: string };
@@ -40,6 +41,7 @@ async function ProjectIdPage({ params }: ProjectIdPageProps) {
           </Button>
         </div>
       </div>
+      <TaskViewSwitcher />
     </div>
   );
 }
