@@ -23,7 +23,7 @@ const statusIconMap: Record<TaskStatus, React.ReactNode> = {
   [TaskStatus.IN_PROGRESS]: (
     <CircleDotDashedIcon className="size-[18px] text-yellow-400" />
   ),
-  [TaskStatus.IS_REVIEW]: (
+  [TaskStatus.IN_REVIEW]: (
     <CircleDotIcon className="size-[18px] text-blue-400" />
   ),
   [TaskStatus.DONE]: (

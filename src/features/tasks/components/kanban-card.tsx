@@ -3,6 +3,9 @@ import { Task } from "../types";
 import { Button } from "@/components/ui/button";
 import { DottedSeperator } from "@/components/dotted-seperator";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
+import { TaskActions } from "./task-actions";
+import { TaskDate } from "@/features/tasks/components/task-date";
+import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 interface KanbanCardProps {
   task: Task;

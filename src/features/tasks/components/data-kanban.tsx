@@ -25,7 +25,7 @@ const boards: TaskStatus[] = [
   TaskStatus.BACKLOG,
   TaskStatus.TODO,
   TaskStatus.IN_PROGRESS,
-  TaskStatus.IS_REVIEW,
+  TaskStatus.IN_REVIEW,
   TaskStatus.DONE,
 ];
 
@@ -37,22 +37,22 @@ interface DataKanbanProps {
 }
 export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
   const [tasks, setTasks] = useState<TaskState>(() => {
-    const initialState: TaskState = {
+    const initialTasks: TaskState = {
       [TaskStatus.BACKLOG]: [],
       [TaskStatus.TODO]: [],
       [TaskStatus.IN_PROGRESS]: [],
-      [TaskStatus.IS_REVIEW]: [],
+      [TaskStatus.IN_REVIEW]: [],
       [TaskStatus.DONE]: [],
     };
     data.forEach((task) => {
-      initialState[task.status].push(task);
+      initialTasks[task.status].push(task);
     });
-    Object.keys(initialState).forEach((status) => {
-      initialState[status as TaskStatus].sort(
+    Object.keys(initialTasks).forEach((status) => {
+      initialTasks[status as TaskStatus].sort(
         (a, b) => a.position - b.position
       );
     });
-    return initialState;
+    return initialTasks;
   });
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
       [TaskStatus.BACKLOG]: [],
       [TaskStatus.TODO]: [],
       [TaskStatus.IN_PROGRESS]: [],
-      [TaskStatus.IS_REVIEW]: [],
+      [TaskStatus.IN_REVIEW]: [],
       [TaskStatus.DONE]: [],
     };
     data.forEach((task) => {
@@ -91,6 +91,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
         // safely remove the task from the source column
         const sourceColumn = [...newTasks[sourceStatus]];
         const [movedTask] = sourceColumn.splice(source.index, 1);
+        // if there is no moved task, return the previous state
         if (!movedTask) return prevTasks;
 
         // create a new task object with potentially updated status and position
