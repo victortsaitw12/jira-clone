@@ -16,7 +16,15 @@ import { DataKanban } from "./data-kanban";
 import { TaskStatus } from "../types";
 import { useCallback } from "react";
 import { useBulkUpdateTask } from "../api/use-bulk-update-task";
-export const TaskViewSwitcher = () => {
+import { DataCalendar } from "./data-calendar";
+
+interface TaskViewSwitcherProps {
+  hideProjectFilter?: boolean;
+}
+
+export const TaskViewSwitcher = ({
+  hideProjectFilter,
+}: TaskViewSwitcherProps) => {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
   const { open } = useCreateTaskModal();
   const workspaceId = useWorkspaceId();
@@ -65,7 +73,7 @@ export const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeperator className="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilter={hideProjectFilter} />
         <DottedSeperator className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full border rounded-lg flex flex-col items-center justify-center h-[200px]">
@@ -82,8 +90,8 @@ export const TaskViewSwitcher = () => {
                 onChange={onKanbanChange}
               />
             </TabsContent>
-            <TabsContent value="calendar" className="mt-0">
-              Calendar
+            <TabsContent value="calendar" className="mt-0 h-full pb-4">
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
