@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
-import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Project } from "../types";
@@ -73,14 +73,7 @@ export const EditProjectForm = ({
       ...values,
       image: values.image instanceof File ? values.image : "",
     };
-    mutate(
-      { form: finalValues, param: { projectId: initialValue.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-      }
-    );
+    mutate({ form: finalValues, param: { projectId: initialValue.$id } });
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -242,7 +235,7 @@ export const EditProjectForm = ({
               size="sm"
               variant="destructive"
               type="button"
-              disabled={isPending}
+              disabled={isPending || isDeletingProject}
               onClick={handleDelete}
             >
               Delete Project

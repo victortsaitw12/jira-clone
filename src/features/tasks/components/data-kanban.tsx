@@ -8,14 +8,6 @@ import {
 } from "@hello-pangea/dnd";
 import { KanbanColumnHeader } from "./kanban-column-header";
 import { KanbanCard } from "./kanban-card";
-import {
-  CircleCheckIcon,
-  CircleDashedIcon,
-  CircleDotDashedIcon,
-  CircleDotIcon,
-  CircleIcon,
-  PlusIcon,
-} from "lucide-react";
 
 type TaskState = {
   [key in TaskStatus]: Task[];

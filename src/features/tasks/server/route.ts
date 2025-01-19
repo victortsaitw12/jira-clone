@@ -108,7 +108,7 @@ const app = new Hono()
           const user = await users.get(member.userId);
           return {
             ...member,
-            name: user.name,
+            name: user.name || user.email,
             email: user.email,
           };
         })
@@ -258,7 +258,7 @@ const app = new Hono()
     const user = await users.get(member.userId);
     const assignee = {
       ...member,
-      name: user.name,
+      name: user.name || user.email,
       email: user.email,
     };
     return c.json({ data: { ...task, project, assignee } });
@@ -298,7 +298,11 @@ const app = new Hono()
       if (workspaceIds.size !== 1) {
         return c.json({ error: "Tasks must be in the same workspace" });
       }
-      const workspaceId = workspaceIds.values().next().value;
+      const workspaceId = workspaceIds.values().next().value as string;
+
+      if (!workspaceId) {
+        return c.json({ error: "Workspace ID is required" }, 400);
+      }
       const member = await getMember({
         databases,
         workspaceId,

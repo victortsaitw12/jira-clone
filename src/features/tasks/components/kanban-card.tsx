@@ -1,6 +1,5 @@
-import { EllipsisIcon, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Task } from "../types";
-import { Button } from "@/components/ui/button";
 import { DottedSeperator } from "@/components/dotted-seperator";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { TaskActions } from "./task-actions";
